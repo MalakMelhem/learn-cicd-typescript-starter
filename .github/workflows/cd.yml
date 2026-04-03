@@ -40,11 +40,11 @@ jobs:
       - name: Configure Docker auth
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      - name: Build and Push Docker image
-        run: |
-          gcloud builds submit \
-          --tag us-central1-docker.pkg.dev/qwiklabs-gcp-01-5a2f022482f8/notely-ar-repo/notely:latest \
-          .
+      # - name: Build and Push Docker image
+      #   run: |
+      #     gcloud builds submit \
+      #     --tag us-central1-docker.pkg.dev/qwiklabs-gcp-01-5a2f022482f8/notely-ar-repo/notely:latest \
+      #     .
 
       - name: Deploy to Cloud Run
         run: |
