@@ -8,6 +8,10 @@ jobs:
   Deploy:
     runs-on: ubuntu-latest
 
+    # Add DATABASE_URL to the job environment
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -23,6 +27,12 @@ jobs:
 
       - name: Build app
         run: npm run build
+
+      # Run database migrations AFTER building but BEFORE deploying
+      - name: Run database migrations
+        run: npx prisma migrate deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
       # Updated to v3 (Node 24 compatible)
       - name: Authenticate to GCP
